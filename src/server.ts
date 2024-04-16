@@ -1,6 +1,7 @@
 import fastify from 'fastify';
 import { z } from 'zod';
 import { PrismaClient } from '@prisma/client';
+import { generateSlug } from './generate_slug';
 
 
 
@@ -16,17 +17,21 @@ server.post('/events', async (request, reply) => {
         title: z.string().min(4),
         detail: z.string().nullable(),
         maximumAttendees: z.number().int().positive().nullable(),
+    
     })
 
     //validação dos dados que vêe da requisição
     const data = createValidation.parse(request.body)
 
+
+    const slug = generateSlug(data.title)
+    
     const dataEvent = await prisma.event.create({
         data:{
             title: data.title,
             detail: data.detail,
             maximumAttendees: data.maximumAttendees,
-            slug: new Date().toDateString()
+            slug
         },
     })
 
