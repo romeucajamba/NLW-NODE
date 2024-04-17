@@ -25,13 +25,14 @@ model Event {
 model Attendee {
   id Int @id @default(autoincrement())
   name String
-  email String
+  email String @unique
   createAt DateTime @default(now())
-  eventId String
+  eventId String @map("event_id")
 
   event Event @relation(fields: [eventId], references: [id])
 
   @@unique([eventId, email])
 
-  @@map("attendee")
+  @@map("attendees")
 }
+
