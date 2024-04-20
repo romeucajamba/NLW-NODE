@@ -56,7 +56,4 @@ export async function createEvents (server: FastifyInstance) {
         return reply.status(201).send({eventId: dataEvent.id})
     })
     
-    server.get('/', () => {
-        return 'Estás na API'
-    })
 }
