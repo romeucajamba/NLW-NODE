@@ -10,3 +10,9 @@
 
 ## Rota para criação de usuários
 - Criação de usuário 
+
+# Tsup
+Para converter e preparar o nosso código para produção
+
+npm i tsup -D
+npm run build
