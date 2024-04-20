@@ -9,6 +9,7 @@ import { getEvent } from './routes/get_event';
 import { getAttendeeBadge } from './routes/get_attendees';
 import { getCheckinQRCode } from './routes/get_check_in';
 import { get_event_attendees } from './routes/get_event_attendees';
+import { errorHandler } from './routes/_errors/error_handler';
 
 
 const server = fastify()
@@ -39,6 +40,9 @@ server.register(getEvent)
 server.register(getAttendeeBadge)
 server.register(getCheckinQRCode)
 server.register(get_event_attendees)
+
+
+server.setErrorHandler(errorHandler)
 
 server.listen({
     port: 3000

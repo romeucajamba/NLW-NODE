@@ -1,7 +1,8 @@
 import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from 'zod';
-import { prisma } from '../data_base_conection/connect'
+import { prisma } from '../data_base_conection/connect';
+import { BadRequest } from './_errors/bad_request';
 
 
 
@@ -42,7 +43,7 @@ export async function getEvent(server:FastifyInstance) {
         })
 
         if(event == null){
-            throw new Error("Evento inexistente!")
+            throw new BadRequest("Evento inexistente!")
         }
 
         

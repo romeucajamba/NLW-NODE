@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 import { prisma } from '../data_base_conection/connect';
+import { BadRequest } from './_errors/bad_request';
 
 
 export async function registerForEvent(server: FastifyInstance) {
@@ -54,7 +55,7 @@ export async function registerForEvent(server: FastifyInstance) {
         ])
 
         if(eventTotal?.maximumAttendees && amouthAttendeeForEvent >= eventTotal.maximumAttendees){
-            throw new Error("O número máximo para o evento já esgotou")
+            throw new BadRequest("O número máximo para o evento já esgotou")
         }
 
         const attendee = await prisma.attendee.create({

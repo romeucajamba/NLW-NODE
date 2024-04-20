@@ -2,6 +2,8 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from 'zod';
 import { prisma } from '../data_base_conection/connect';
+import { BadRequest } from './_errors/bad_request';
+
 
 export async function getCheckinQRCode(server: FastifyInstance) {
     server.withTypeProvider<ZodTypeProvider>().get('/attendees/:attendeeId/check_in', {
@@ -26,7 +28,7 @@ export async function getCheckinQRCode(server: FastifyInstance) {
         })
 
         if(attendeeCheckIn !== null ){
-            throw new Error("Participante já tem um checkin")
+            throw new BadRequest("Participante já tem um checkin")
         }
 
         const createChackin = await prisma.checkIn.create({
