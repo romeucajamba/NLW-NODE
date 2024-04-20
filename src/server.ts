@@ -2,6 +2,7 @@ import fastify from 'fastify';
 import { serializerCompiler, validatorCompiler, jsonSchemaTransform } from 'fastify-type-provider-zod';
 import fastifySwagger from '@fastify/swagger'; // Intalar o @fastify/swagger para criar a documentação, a especificação da API e o @fastify/swagger-ui Para interface
 import fastifySwaggerUi from '@fastify/swagger-ui';
+import { fastifyCors } from '@fastify/cors';
 
 import { createEvents } from './routes/create_events';
 import { registerForEvent } from './routes/register_for_event';
@@ -13,6 +14,10 @@ import { errorHandler } from './routes/_errors/error_handler';
 
 
 const server = fastify()
+
+server.register(fastifyCors, {
+    origin: '*',
+})
 
 server.register( fastifySwagger, {
     swagger :{
@@ -45,7 +50,8 @@ server.register(get_event_attendees)
 server.setErrorHandler(errorHandler)
 
 server.listen({
-    port: 3000
+    port: 3000,
+    host: '0.0.0.0'
 }).then(() => {
     console.log("Server running in port 3000")
 })
