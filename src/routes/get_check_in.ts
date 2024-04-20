@@ -6,6 +6,8 @@ import { prisma } from '../data_base_conection/connect';
 export async function getCheckinQRCode(server: FastifyInstance) {
     server.withTypeProvider<ZodTypeProvider>().get('/attendees/:attendeeId/check_in', {
         schema:{
+            summary: 'Get Check_in',
+            tags: ['Check_in'],
             params: z.object({
                 attendeeId: z.coerce.number().int()
             }),

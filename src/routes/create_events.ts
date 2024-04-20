@@ -9,6 +9,8 @@ import { prisma } from '../data_base_conection/connect';
 export async function createEvents (server: FastifyInstance) {
     server.withTypeProvider<ZodTypeProvider>().post('/events', {
         schema:{
+            summary: 'Create Evente',
+            tags: ['Events'],
             body: z.object({
                     title: z.string().min(4),
                     detail: z.string().nullable(),

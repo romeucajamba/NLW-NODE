@@ -7,6 +7,8 @@ import z from 'zod';
 export async function getAttendeeBadge(server:FastifyInstance) {
     server.withTypeProvider<ZodTypeProvider>().get('/attendee/:attendeeId/badge', {
         schema:{
+            summary: 'Get Evente',
+            tags: ['Events'],
             params: z.object({
                 attendeeId: z.coerce.number().int(),
             }),
